@@ -1,28 +1,46 @@
-# Learn Sphere
+# LearnSphere
 
-Learn Sphere is a full-stack EdTech platform where students can explore and purchase courses, while instructors can create, manage, and track their course content. The project includes authentication, role-based dashboards, course management, secure payments, media uploads, email notifications, ratings, reviews, and course progress tracking.
+LearnSphere is a full-stack EdTech platform that allows students to explore and purchase courses, while instructors can create, manage, and publish course content. The platform includes authentication, OTP verification, role-based dashboards, course management, secure payments, media uploads, ratings, reviews, and course progress tracking.
 
-## GitHub Description
+## Project Overview
 
-Full-stack EdTech platform built with React, Node.js, Express, MongoDB, JWT authentication, Cloudinary, Nodemailer, and Razorpay.
+LearnSphere is designed to provide a complete online learning experience. Students can browse available courses, view course details, add courses to their cart, make payments, and access enrolled courses. Instructors can create courses, add course sections and lectures, upload thumbnails and videos, and manage their published content.
+
+The project follows a full-stack architecture where the React frontend communicates with the Node.js and Express backend through REST APIs. MongoDB is used as the database, while Cloudinary is used for media storage, Nodemailer for email/OTP services, and Razorpay for payment integration.
 
 ## Features
 
-- Student and instructor authentication
+### Student Features
+
+- User signup and login
 - OTP-based email verification
-- JWT-based protected routes
-- Role-based dashboard for students and instructors
-- Course creation and management
-- Section and subsection management for course content
-- Course catalog and course details pages
-- Cart and course enrollment flow
-- Razorpay payment integration
-- Cloudinary media upload support
-- Email notifications using Nodemailer
-- Ratings and reviews for courses
-- Profile management and display picture update
-- Course progress tracking
-- Responsive frontend UI
+- Browse course categories
+- View course details
+- Add courses to cart
+- Purchase courses using Razorpay
+- Access enrolled courses
+- Track course progress
+- Add ratings and reviews
+- Manage profile details
+
+### Instructor Features
+
+- Instructor dashboard
+- Create and edit courses
+- Add course sections and subsections
+- Upload course thumbnails and lecture content
+- View created courses
+- Manage course content
+- Track course-related information
+
+### Authentication and Security
+
+- JWT-based authentication
+- Password hashing using bcrypt
+- Protected routes for authenticated users
+- Role-based access for students and instructors
+- OTP verification through email
+- Password reset functionality
 
 ## Tech Stack
 
@@ -35,7 +53,6 @@ Full-stack EdTech platform built with React, Node.js, Express, MongoDB, JWT auth
 - Axios
 - React Hook Form
 - React Hot Toast
-- Chart.js
 
 ### Backend
 
@@ -43,22 +60,25 @@ Full-stack EdTech platform built with React, Node.js, Express, MongoDB, JWT auth
 - Express.js
 - MongoDB
 - Mongoose
-- JWT Authentication
+- JWT
 - Bcrypt
 - Cookie Parser
 - Express File Upload
 
 ### Third-Party Services
 
-- Cloudinary for media storage
-- Nodemailer for sending emails and OTPs
-- Razorpay for payment processing
+- Cloudinary for media upload and storage
+- Nodemailer for sending OTP and email notifications
+- Razorpay for payment integration
 
-## Project Structure
+## Folder Structure
 
 ```text
-Learn-Sphere/
+LearnSphere/
+│
 ├── public/
+│   └── Static assets
+│
 ├── src/
 │   ├── assets/
 │   ├── components/
@@ -66,8 +86,8 @@ Learn-Sphere/
 │   ├── services/
 │   ├── slices/
 │   ├── utils/
-│   ├── App.js
-│   └── index.js
+│   └── App.js
+│
 ├── server/
 │   ├── config/
 │   ├── controllers/
@@ -77,7 +97,9 @@ Learn-Sphere/
 │   ├── routes/
 │   ├── utils/
 │   └── index.js
+│
 ├── package.json
+├── tailwind.config.js
 └── README.md
 ```
 
@@ -86,8 +108,8 @@ Learn-Sphere/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/Learn-Sphere.git
-cd Learn-Sphere
+git clone https://github.com/GargiRawat00/LearnSphere.git
+cd LearnSphere
 ```
 
 ### 2. Install frontend dependencies
@@ -104,23 +126,29 @@ npm install
 cd ..
 ```
 
-### 4. Create environment file
+### 4. Configure environment variables
 
-Create a `.env` file inside the `server` folder.
+Create a `.env` file in the root folder:
+
+```env
+REACT_APP_BASE_URL=http://localhost:4000/api/v1
+```
+
+Create another `.env` file inside the `server` folder:
 
 ```env
 PORT=4000
 MONGODB_URL=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 
+MAIL_HOST=your_mail_host
+MAIL_USER=your_mail_user
+MAIL_PASS=your_mail_password
+
 CLOUD_NAME=your_cloudinary_cloud_name
 API_KEY=your_cloudinary_api_key
 API_SECRET=your_cloudinary_api_secret
 FOLDER_NAME=your_cloudinary_folder_name
-
-MAIL_HOST=your_smtp_host
-MAIL_USER=your_smtp_user
-MAIL_PASS=your_smtp_password
 
 RAZORPAY_KEY=your_razorpay_key
 RAZORPAY_SECRET=your_razorpay_secret
@@ -128,96 +156,89 @@ RAZORPAY_SECRET=your_razorpay_secret
 
 ### 5. Run the project
 
-To run frontend and backend together:
+Start the backend server:
 
 ```bash
+cd server
 npm run dev
 ```
 
-Frontend runs on:
+Start the frontend in another terminal:
 
-```text
-http://localhost:3000
+```bash
+npm start
 ```
 
-Backend runs on:
+The application will run at:
 
 ```text
-http://localhost:4000
+Frontend: http://localhost:3000
+Backend:  http://localhost:4000
 ```
 
-## Main Modules
+## API Modules
 
-### Authentication Module
+The backend is divided into multiple modules:
 
-Handles signup, login, OTP verification, password reset, password change, and JWT-based user authentication.
+- Authentication APIs for signup, login, OTP verification, and password reset
+- Profile APIs for user profile management
+- Course APIs for course creation, editing, category management, and course details
+- Payment APIs for Razorpay order creation and payment verification
+- Rating and review APIs for course feedback
 
-### Course Module
+## Database Design
 
-Allows instructors to create courses, add sections and subsections, upload course content, edit courses, delete courses, and view instructor-specific courses.
+The project uses MongoDB with Mongoose models. Major collections include:
 
-### Student Module
+- Users
+- Profiles
+- Courses
+- Categories
+- Sections
+- Subsections
+- Ratings and Reviews
+- OTPs
+- Course Progress
 
-Allows students to browse courses, view course details, add courses to cart, purchase courses, access enrolled courses, and track progress.
+## How LearnSphere Works
 
-### Payment Module
+1. A user signs up and verifies their email through OTP.
+2. The backend stores user information securely in MongoDB.
+3. After login, the backend generates a JWT token.
+4. The frontend uses the token to access protected routes.
+5. Students can browse courses and purchase them through Razorpay.
+6. Instructors can create courses and upload course content using Cloudinary.
+7. Course progress and enrolled course data are stored in MongoDB.
 
-Uses Razorpay to capture and verify course payments. After successful payment, enrollment and confirmation emails are handled by the backend.
+## Screenshots
 
-### Profile Module
-
-Allows users to update profile details, upload display pictures, view enrolled courses, and manage account settings.
-
-## API Overview
-
-### Auth Routes
+Add screenshots here after running the project locally.
 
 ```text
-POST /api/v1/auth/signup
-POST /api/v1/auth/login
-POST /api/v1/auth/sendotp
-POST /api/v1/auth/changepassword
-POST /api/v1/auth/reset-password-token
-POST /api/v1/auth/reset-password
+Home Page
+Signup Page
+Login Page
+Student Dashboard
+Instructor Dashboard
+Course Details Page
 ```
 
-### Course Routes
+## Future Improvements
 
-```text
-POST /api/v1/course/createCourse
-POST /api/v1/course/addSection
-POST /api/v1/course/addSubSection
-GET  /api/v1/course/getAllCourses
-POST /api/v1/course/getCourseDetails
-POST /api/v1/course/getFullCourseDetails
-POST /api/v1/course/editCourse
-GET  /api/v1/course/getInstructorCourses
-POST /api/v1/course/updateCourseProgress
-```
-
-### Profile Routes
-
-```text
-GET    /api/v1/profile/getUserDetails
-PUT    /api/v1/profile/updateProfile
-PUT    /api/v1/profile/updateDisplayPicture
-GET    /api/v1/profile/getEnrolledCourses
-GET    /api/v1/profile/instructorDashboard
-DELETE /api/v1/profile/deleteProfile
-```
-
-### Payment Routes
-
-```text
-POST /api/v1/payment/capturePayment
-POST /api/v1/payment/verifyPayment
-POST /api/v1/payment/sendPaymentSuccessEmail
-```
-
-## Learning Purpose
-
-This project is useful for understanding how a real full-stack web application works. It covers frontend development, backend API design, database modeling, authentication, file upload, payment gateway integration, email handling, and role-based access control.
+- Add admin dashboard
+- Add live classes support
+- Add course search and advanced filters
+- Add wishlist functionality
+- Add certificate generation after course completion
+- Improve analytics for instructors
+- Add deployment on cloud platforms
 
 ## Author
 
 **Gargi Rawat**
+
+GitHub: [GargiRawat00](https://github.com/GargiRawat00)
+
+## License
+
+This project is created for learning and portfolio purposes.
